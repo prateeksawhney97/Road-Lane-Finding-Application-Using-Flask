@@ -1,9 +1,11 @@
 from flask import *  
-UPLOAD_FOLDER = '/home/prateeksawhney97/Documents/Advance-Lane-Flask-Application/upload/'
 
 import pandas as pd
 import numpy as np
 import os
+
+IMAGE_FOLDER = 'static/'
+#IMAGE_FOLDER = os.path.join('upload', 'images')
 
 
 from sklearn.feature_extraction.text import CountVectorizer
@@ -11,18 +13,19 @@ from sklearn.naive_bayes import MultinomialNB
 
 
 app = Flask(__name__)  
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = IMAGE_FOLDER
 
 @app.route('/')  
 def upload():
 	return render_template("file_upload_form.html")  
  
-@app.route('/success', methods = ['POST'])
+@app.route('/success', methods = ['POST', 'GET'])
 def success():
-	if request.method == 'POST':
+	if request.method == 'POST' or request.method == 'GET':
 		f = request.files['file']
 		f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
-		return render_template("success.html", name = f.filename)
+		full_filename = os.path.join(app.config['UPLOAD_FOLDER'], f.filename)
+		return render_template("success.html", name = f.filename, img = full_filename)
 
 @app.route("/predict", methods=['POST'])
 def predict():
