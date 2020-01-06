@@ -19,9 +19,9 @@ app.config['UPLOAD_FOLDER'] = IMAGE_FOLDER
 def upload():
 	return render_template("file_upload_form.html")  
  
-@app.route('/success', methods = ['POST', 'GET'])
+@app.route('/success', methods = ['POST'])
 def success():
-	if request.method == 'POST' or request.method == 'GET':
+	if request.method == 'POST':
 		f = request.files['file']
 		f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
 		full_filename = os.path.join(app.config['UPLOAD_FOLDER'], f.filename)
