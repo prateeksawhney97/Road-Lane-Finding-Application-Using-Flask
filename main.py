@@ -30,19 +30,14 @@ def upload():
 def success():
 	if request.method == 'POST':
 		f = request.files['file']
-		#print(f)
-		#image=f
 		#hls = (np.float32(image), cv2.COLOR_RGB2HLS)
-		#f=hls
 		f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
 		full_filename = os.path.join(app.config['UPLOAD_FOLDER'], f.filename)
-		#print(f)
 		#filepath = os.path.join(app.config['imgdir'], filename);
 		#file.save(filepath)
 		image_ext = cv2.imread(full_filename)
 		hls = cv2.cvtColor(image_ext, cv2.COLOR_RGB2HLS)
-		
-		#image = full_filename
+		cv2.imwrite('processed/sample.jpg', hls)
 		return render_template("success.html", name = f.filename, img = full_filename)
 
 @app.route('/predict', methods = ['POST'])
