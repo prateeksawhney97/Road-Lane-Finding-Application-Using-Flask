@@ -40,6 +40,8 @@ def success():
 		#filepath = os.path.join(app.config['imgdir'], filename);
 		#file.save(filepath)
 		image_ext = cv2.imread(full_filename)
+		hls = cv2.cvtColor(image_ext, cv2.COLOR_RGB2HLS)
+		
 		#image = full_filename
 		return render_template("success.html", name = f.filename, img = full_filename)
 
