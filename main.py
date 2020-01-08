@@ -135,17 +135,8 @@ def success():
 		
 		result_final = cv2.addWeighted(undistorted, 1, newwarp, 0.3, 0)
 		
-
-
-
-
-
-
-
 		output_image_after_detecting = result_final
 		
-
-
 		i = randint(1, 1000000)
 		char = str(i)
 		hls_name = 'sample_'+char+'.jpg'
