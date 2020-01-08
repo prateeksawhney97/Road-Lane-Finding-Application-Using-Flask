@@ -35,7 +35,7 @@ def success():
 		#filepath = os.path.join(app.config['imgdir'], filename);
 		#file.save(filepath)
 		image_ext = cv2.imread(full_filename)
-
+		initial_image = np.copy(image_ext)
 
 		objp = np.zeros((6*9,3), np.float32)
 		objp[:,:2] = np.mgrid[0:9,0:6].T.reshape(-1,2)
@@ -60,7 +60,13 @@ def success():
         			objpoints.append(objp)
         			imgpoints.append(corners)
 
-		hls = cv2.cvtColor(image_ext, cv2.COLOR_RGB2HLS)
+
+		ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, initial_image.shape[1::-1], None, None)
+		undistorted = cv2.undistort(initial_image, mtx, dist, None, mtx)
+		hls = cv2.cvtColor(undistorted, cv2.COLOR_RGB2HLS)
+		s_channel = hls[:,:,2]
+		gray = cv2.cvtColor(undistorted, cv2.COLOR_RGB2GRAY)		
+		hls = gray
 		
 
 
