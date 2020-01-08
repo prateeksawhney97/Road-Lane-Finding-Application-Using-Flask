@@ -105,16 +105,49 @@ def success():
 
 		warped_image = cv2.warpPerspective(combined_binary, M, im_size, flags=cv2.INTER_NEAREST)
 
+		margin = 100
+		nonzero = warped_image.nonzero()
+		nonzeroy = np.array(nonzero[0])
+		nonzerox = np.array(nonzero[1])
 
 
-		hls = warped_image
+
+		left_lane_inds = ((nonzerox > (left_fit[0]*(nonzeroy**2) + left_fit[1]*nonzeroy + 
+                    left_fit[2] - margin)) & (nonzerox < (left_fit[0]*(nonzeroy**2) + 
+                    left_fit[1]*nonzeroy + left_fit[2] + margin)))
+		right_lane_inds = ((nonzerox > (right_fit[0]*(nonzeroy**2) + right_fit[1]*nonzeroy + 
+                    right_fit[2] - margin)) & (nonzerox < (right_fit[0]*(nonzeroy**2) + 
+                    right_fit[1]*nonzeroy + right_fit[2] + margin)))
+		leftx = nonzerox[left_lane_inds]
+		lefty = nonzeroy[left_lane_inds]
+		rightx = nonzerox[right_lane_inds]
+		righty = nonzeroy[right_lane_inds]
+		left_fitx, right_fitx, ploty = fit_poly(warped_image.shape, leftx, lefty, rightx, righty)
+		warp_zero = np.zeros_like(warped_image).astype(np.uint8)
+		color_warp = np.dstack((warp_zero, warp_zero, warp_zero))
+		pts_left = np.array([np.transpose(np.vstack([left_fitx, ploty]))])
+		pts_right = np.array([np.flipud(np.transpose(np.vstack([right_fitx, ploty])))])
+		pts = np.hstack((pts_left, pts_right))
+		cv2.fillPoly(color_warp, np.int_([pts]), (0,255, 0))
+		newwarp = cv2.warpPerspective(color_warp, M_inverse, im_size)
+		
+		result_final = cv2.addWeighted(undistorted, 1, newwarp, 0.3, 0)
+		
+
+
+
+
+
+
+
+		output_image_after_detecting = result_final
 		
 
 
 		i = randint(1, 1000000)
 		char = str(i)
 		hls_name = 'sample_'+char+'.jpg'
-		cv2.imwrite('static/processed/'+hls_name, hls)
+		cv2.imwrite('static/processed/'+hls_name, output_image_after_detecting)
 		full_filename_processed = os.path.join(app.config['PROCESSED_FOLDER'], hls_name)		
 		final_text = 'Results after Detecting Lane Area over Input Image'
 		return render_template("success.html", name = final_text, img_in = full_filename, img = full_filename_processed)
