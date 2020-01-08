@@ -104,7 +104,9 @@ def success():
 		M_inverse = cv2.getPerspectiveTransform(dst, src)
 
 		warped_image = cv2.warpPerspective(combined_binary, M, im_size, flags=cv2.INTER_NEAREST)
-
+		left_fit = np.array([ 2.13935315e-04, -3.77507980e-01,  4.76902175e+02])
+		right_fit = np.array([4.17622148e-04, -4.93848953e-01,  1.11806170e+03])
+		
 		margin = 100
 		nonzero = warped_image.nonzero()
 		nonzeroy = np.array(nonzero[0])
