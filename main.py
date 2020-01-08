@@ -8,8 +8,10 @@ import pickle
 import cv2
 import glob
 
+from random import randint
+
 IMAGE_FOLDER = 'static/'
-PROCESSED_FOLDER = 'processed/'
+PROCESSED_FOLDER = 'static/processed/'
 #IMAGE_FOLDER = os.path.join('upload', 'images')
 
 
@@ -34,14 +36,14 @@ def success():
 		#file.save(filepath)
 		image_ext = cv2.imread(full_filename)
 		hls = cv2.cvtColor(image_ext, cv2.COLOR_RGB2HLS)
-		hls_name = 'sample.jpg'
-		cv2.imwrite('static/'+hls_name, hls)
-		full_filename_processed = os.path.join(app.config['UPLOAD_FOLDER'], hls_name)		
-		#full_filename_processed = os.path.join(app.config['PROCESSED_FOLDER'], hls_name)
-		hls_final_name = 'Resultant Image after Detecting Lane Area'
-		#return render_template("success.html", name = f.filename, img = full_filename)
-		return render_template("success.html", name = hls_final_name, img = full_filename_processed)
-		#return render_template("success.html", name=hls_final_name)
+		i = randint(1, 1000000)
+		char = str(i)
+		hls_name = 'sample_'+char+'.jpg'
+		cv2.imwrite('static/processed/'+hls_name, hls)
+		full_filename_processed = os.path.join(app.config['PROCESSED_FOLDER'], hls_name)		
+		final_text = 'Results after Detecting Lane Area over Input Image'
+		return render_template("success.html", name = final_text, img_in = full_filename, img = full_filename_processed)
+		
 
 @app.route('/predict', methods = ['POST'])
 def predict():
