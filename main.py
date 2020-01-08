@@ -45,15 +45,11 @@ def success():
 		return render_template("success.html", name = final_text, img_in = full_filename, img = full_filename_processed)
 		
 
-@app.route('/predict', methods = ['POST'])
-def predict():
+@app.route('/info', methods = ['POST'])
+def info():
 	if request.method == 'POST':
-		return render_template("abc.html")
+		return render_template("info.html")
 
-@app.route('/result', methods = ['POST'])
-def result():
-	if request.method == 'POST':
-		return render_template("result.html")
 
 
 if __name__ == '__main__':  
