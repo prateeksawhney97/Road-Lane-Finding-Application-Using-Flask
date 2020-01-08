@@ -32,18 +32,31 @@ def success():
 		f = request.files['file']
 		#hls = (np.float32(image), cv2.COLOR_RGB2HLS)
 		f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
+		#print(f.filename)
 		full_filename = os.path.join(app.config['UPLOAD_FOLDER'], f.filename)
 		#filepath = os.path.join(app.config['imgdir'], filename);
 		#file.save(filepath)
 		image_ext = cv2.imread(full_filename)
 		hls = cv2.cvtColor(image_ext, cv2.COLOR_RGB2HLS)
-		cv2.imwrite('processed/sample.jpg', hls)
-		return render_template("success.html", name = f.filename, img = full_filename)
+		hls_name = 'sample.jpg'
+		cv2.imwrite('processed/'+hls_name, hls)
+		full_filename_processed = os.path.join(app.config['PROCESSED_FOLDER'], hls_name)
+		hls_final_name = 'Resultant Image after Detecting Lane Area'
+		#print(full_filename)
+		#print(full_filename_processed)
+		#return render_template("success.html", name = f.filename, img = full_filename)
+		#return render_template("success.html", name = hls_final_name, img = full_filename_processed)
+		return render_template("success.html", name=hls_final_name)
 
 @app.route('/predict', methods = ['POST'])
 def predict():
 	if request.method == 'POST':
 		return render_template("abc.html")
+
+@app.route('/result', methods = ['POST'])
+def result():
+	if request.method == 'POST':
+		return render_template("result.html")
 
 
 if __name__ == '__main__':  
