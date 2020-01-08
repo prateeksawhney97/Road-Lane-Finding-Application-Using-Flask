@@ -66,6 +66,7 @@ def success():
 		hls = cv2.cvtColor(undistorted, cv2.COLOR_RGB2HLS)
 		s_channel = hls[:,:,2]
 		gray = cv2.cvtColor(undistorted, cv2.COLOR_RGB2GRAY)		
+		
 		hls = gray
 		
 
