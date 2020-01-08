@@ -35,7 +35,35 @@ def success():
 		#filepath = os.path.join(app.config['imgdir'], filename);
 		#file.save(filepath)
 		image_ext = cv2.imread(full_filename)
+
+
+		objp = np.zeros((6*9,3), np.float32)
+		objp[:,:2] = np.mgrid[0:9,0:6].T.reshape(-1,2)
+
+		# Arrays to store object points and image points from all the images.
+		objpoints = [] # 3d points in real world space
+		imgpoints = [] # 2d points in image plane.
+
+		# Make a list of calibration images
+		images_for_calibration = glob.glob('camera_cal/calibration*.jpg')
+
+		# Step through the list and search for chessboard corners
+		for f_name in images_for_calibration:
+	    		img_read = cv2.imread(f_name)
+    			gray = cv2.cvtColor(img_read,cv2.COLOR_BGR2GRAY)
+
+    			# Find the chessboard corners
+    			ret, corners = cv2.findChessboardCorners(gray, (9,6),None)
+
+    			# If found, add object points, image points
+    			if ret == True:
+        			objpoints.append(objp)
+        			imgpoints.append(corners)
+
 		hls = cv2.cvtColor(image_ext, cv2.COLOR_RGB2HLS)
+		
+
+
 		i = randint(1, 1000000)
 		char = str(i)
 		hls_name = 'sample_'+char+'.jpg'
