@@ -65,9 +65,24 @@ def success():
 		undistorted = cv2.undistort(initial_image, mtx, dist, None, mtx)
 		hls = cv2.cvtColor(undistorted, cv2.COLOR_RGB2HLS)
 		s_channel = hls[:,:,2]
-		gray = cv2.cvtColor(undistorted, cv2.COLOR_RGB2GRAY)		
+		gray = cv2.cvtColor(undistorted, cv2.COLOR_RGB2GRAY)
 		
-		hls = gray
+		sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0) # Take the derivative in x
+		abs_sobelx = np.absolute(sobelx) # Absolute x derivative to accentuate lines away from horizontal
+		scaled_sobel = np.uint8(255*abs_sobelx/np.max(abs_sobelx))
+		thresh_min = 20
+		thresh_max = 100
+		sxbinary = np.zeros_like(scaled_sobel)
+		sxbinary[(scaled_sobel >= thresh_min) & (scaled_sobel <= thresh_max)] = 1
+		s_thresh_min = 170
+		s_thresh_max = 255
+		s_binary = np.zeros_like(s_channel)
+		s_binary[(s_channel >= s_thresh_min) & (s_channel <= s_thresh_max)] = 1
+		color_binary = np.dstack(( np.zeros_like(sxbinary), sxbinary, s_binary)) * 255
+		combined_binary = np.zeros_like(sxbinary)
+		combined_binary[(s_binary == 1) | (sxbinary == 1)] = 1
+		warped_image = warper(combined_binary, src, dst)
+		hls = warped_image
 		
 
 
