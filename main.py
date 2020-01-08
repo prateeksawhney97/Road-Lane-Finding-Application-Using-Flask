@@ -10,6 +10,18 @@ import glob
 
 from random import randint
 
+
+
+def fit_poly(img_shape, leftx, lefty, rightx, righty):
+	left_fit = np.polyfit(lefty, leftx, 2)
+	right_fit = np.polyfit(righty, rightx, 2)
+	# Generate x and y values for plotting
+	ploty = np.linspace(0, img_shape[0]-1, img_shape[0])
+	left_fitx = left_fit[0]*ploty**2 + left_fit[1]*ploty + left_fit[2]
+	right_fitx = right_fit[0]*ploty**2 + right_fit[1]*ploty + right_fit[2]
+	return left_fitx, right_fitx, ploty
+
+
 IMAGE_FOLDER = 'static/'
 PROCESSED_FOLDER = 'static/processed/'
 #IMAGE_FOLDER = os.path.join('upload', 'images')
@@ -81,7 +93,20 @@ def success():
 		color_binary = np.dstack(( np.zeros_like(sxbinary), sxbinary, s_binary)) * 255
 		combined_binary = np.zeros_like(sxbinary)
 		combined_binary[(s_binary == 1) | (sxbinary == 1)] = 1
-		warped_image = warper(combined_binary, src, dst)
+
+		nx = 9 # the number of inside corners in x
+		ny = 6 # the number of inside corners in y
+		src = np.float32([[590,450],[687,450],[1100,720],[200,720]])
+		dst = np.float32([[300,0],[900,0],[900,720],[300,720]])
+		
+		im_size = (combined_binary.shape[1], combined_binary.shape[0])
+		M = cv2.getPerspectiveTransform(src, dst)
+		M_inverse = cv2.getPerspectiveTransform(dst, src)
+
+		warped_image = cv2.warpPerspective(combined_binary, M, im_size, flags=cv2.INTER_NEAREST)
+
+
+
 		hls = warped_image
 		
 
