@@ -13,10 +13,6 @@ PROCESSED_FOLDER = 'processed/'
 #IMAGE_FOLDER = os.path.join('upload', 'images')
 
 
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
-
-
 app = Flask(__name__)  
 app.config['UPLOAD_FOLDER'] = IMAGE_FOLDER
 app.config['PROCESSED_FOLDER'] = PROCESSED_FOLDER
@@ -39,14 +35,13 @@ def success():
 		image_ext = cv2.imread(full_filename)
 		hls = cv2.cvtColor(image_ext, cv2.COLOR_RGB2HLS)
 		hls_name = 'sample.jpg'
-		cv2.imwrite('processed/'+hls_name, hls)
-		full_filename_processed = os.path.join(app.config['PROCESSED_FOLDER'], hls_name)
+		cv2.imwrite('static/'+hls_name, hls)
+		full_filename_processed = os.path.join(app.config['UPLOAD_FOLDER'], hls_name)		
+		#full_filename_processed = os.path.join(app.config['PROCESSED_FOLDER'], hls_name)
 		hls_final_name = 'Resultant Image after Detecting Lane Area'
-		#print(full_filename)
-		#print(full_filename_processed)
 		#return render_template("success.html", name = f.filename, img = full_filename)
-		#return render_template("success.html", name = hls_final_name, img = full_filename_processed)
-		return render_template("success.html", name=hls_final_name)
+		return render_template("success.html", name = hls_final_name, img = full_filename_processed)
+		#return render_template("success.html", name=hls_final_name)
 
 @app.route('/predict', methods = ['POST'])
 def predict():
