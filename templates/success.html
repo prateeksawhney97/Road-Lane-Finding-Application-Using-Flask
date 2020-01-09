@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>  
 <head>  
-<title>success</title>  
+	<title>success</title>  
 </head>  
 <body>  
-<p>File uploaded successfully and Detected Lane Lines are:</p>  
-<p>File Name: {{name}}</p>  
-<!--<img src="{{url_for('success', filename='{{ name }}')}}" align="middle" />-->
+	<div>	
+		<p>File uploaded successfully and Detected Lane Lines are:</p>  
+		<p>File Name: {{name}}</p>  
+		<!--<img src="{{url_for('success', filename='{{ name }}')}}" align="middle" />-->
+	</div>
+	<div>
+		<p>Your Input Image</p>
+		<img src="{{ img_in }}">
 
-<p>Your Input Image</p>
-<img src="{{ img_in }}">
-
-<p>Your Output Image</p>
-<img src="{{ img }}">
-
-<form action="{{ url_for('info')}}" method="POST">
-<input type = "submit" value="Find More Information about Lane Finding..">  
-
-<!--<img src="../processed/sample.jpg">-->
-
-</form>
-
+		<p>Your Output Image</p>
+		<img src="{{ img }}">
+	</div>
+	<div>
+		<form action="{{ url_for('info')}}" method="POST">
+		<input type = "submit" value="Find More Information about Lane Finding..">  
+		<!--<img src="../processed/sample.jpg">-->
+		</form>
+	</div>
 
 </body>  
 </html>  
