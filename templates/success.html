@@ -3,22 +3,35 @@
 <head>  
 	<title>success</title>  
 </head>  
-<body>  
-	<div>	
-		<p>File uploaded successfully and Detected Lane Lines are:</p>  
-		<p>File Name: {{name}}</p>  
-		<!--<img src="{{url_for('success', filename='{{ name }}')}}" align="middle" />-->
+<body style="background-color:#b3ffb3;">  
+	<header>
+		<div style="background-color:rgb(106, 90, 205); border-radius: 10px;">	
+			<div style="background-color:DodgerBlue; margin-top: 50px; height: 100px; border-radius: 10px;">
+				<p style="font-size:40px; text-align: center;">File uploaded successfully and Detected Lane Lines are:</p>  
+			</div>			
+			<p style="font-size:35px; text-align: center;">{{name}}</p>  
+			<!--<img src="{{url_for('success', filename='{{ name }}')}}" align="middle" />-->
+		</div>
+	</header>
+	<div>
+		<div>
+			<p style="font-size:25px; text-align: center;">Your Input Image</p>
+			<img src="{{ img_in }}">
+		</div>
+		<div>
+			<p style="font-size:25px; text-align: center;">Your Output Image</p>
+			<img src="{{ img }}">
+		</div>
 	</div>
 	<div>
-		<p>Your Input Image</p>
-		<img src="{{ img_in }}">
+			
+		<form action="https://github.com/prateeksawhney97">
+		<input style="margin: auto; margin-top: 15px; background-color:DodgerBlue; color: white; padding: 15px 32px; text-align: center; display: block; font-size: 16px; margin-bottom: 15px;" type = "submit" value="GitHub">  
+		<!--<img src="../processed/sample.jpg">-->
+		</form>
 
-		<p>Your Output Image</p>
-		<img src="{{ img }}">
-	</div>
-	<div>
 		<form action="{{ url_for('info')}}" method="POST">
-		<input type = "submit" value="Find More Information about Lane Finding..">  
+		<input style="margin: auto; margin-top: 15px; background-color:DodgerBlue; color: white; padding: 15px 32px; text-align: center; display: block; font-size: 16px; margin-bottom: 15px;" type = "submit" value="Source Code">  
 		<!--<img src="../processed/sample.jpg">-->
 		</form>
 	</div>
