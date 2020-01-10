@@ -5,7 +5,7 @@
 
 #### Deployment:
 
-The application is deplpoyed over Google Cloud Platform. https://lane-finding.appspot.com
+The Flask Application is deployed over Google Cloud Platform. https://lane-finding.appspot.com
 
 #### Application Structure:
 
@@ -38,6 +38,11 @@ The application is deplpoyed over Google Cloud Platform. https://lane-finding.ap
 5. scipy==0.18.1
 6. scikit-learn>=0.18
 7. opencv-python==3.1.0.4
+
+
+#### Pipeline:
+
+##### Camera Calibration:
 
 
 #### Screenshots:
