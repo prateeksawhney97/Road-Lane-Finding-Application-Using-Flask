@@ -56,6 +56,16 @@ Detecting edges around trees or cars is okay because these lines can be mostly f
 
 I performed gradient threshold and color threshold individually and then created a binary combination of these two images to map out where either the color or gradient thresholds were met called the combined_binary in the code.
 
+##### Perspective Transform:
+
+Perspective Transform is the Bird's eye view for Lane images. We want to look at the lanes from the top and have a clear picture about their curves. Implementing Perspective Transform was the most interesting one for me. I used values of src and dst as shown below:
+
+src = np.float32([[590,450],[687,450],[1100,720],[200,720]])
+
+dst = np.float32([[300,0],[900,0],[900,720],[300,720]])
+
+Also, made a function warper(img, src, dst) which takes in the Binary Warped Image and return the perspective transform using cv2.getPerspectiveTransform(src, dst) and cv2.warpPerspective(img, M, img_size, flags=cv2.INTER_NEAREST).
+
 #### Screenshots:
 
 
