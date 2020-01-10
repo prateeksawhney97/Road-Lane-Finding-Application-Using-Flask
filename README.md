@@ -44,6 +44,7 @@ The Flask Application is deployed over Google Cloud Platform. https://lane-findi
 
 ##### Camera Calibration:
 
+The first step in the pipeline is to undistort the camera. Some images of a 9x6 chessboard are given and are distorted. Our task is to find the Chessboard corners an plot them. For this, after loading the images we calibrate the camera. Open CV functions like findChessboardCorners(), drawChessboardCorners() and calibrateCamera() help us do this.
 
 #### Screenshots:
 
