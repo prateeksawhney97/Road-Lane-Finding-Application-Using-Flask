@@ -50,6 +50,12 @@ The first step in the pipeline is to undistort the camera. Some images of a 9x6 
 
 The images uploaded are initially undistorted using cv2.undistort() which takes in an image and returns the undistorted one.
 
+##### Color transforms, gradients or other methods to create a thresholded binary image:
+
+Detecting edges around trees or cars is okay because these lines can be mostly filtered out by applying a mask to the image and essentially cropping out the area outside of the lane lines. It's most important that we reliably detect different colors of lane lines under varying degrees of daylight and shadow. So, that our self driving car does not become blind in extreme daylight hours or under the shadow of a tree.
+
+I performed gradient threshold and color threshold individually and then created a binary combination of these two images to map out where either the color or gradient thresholds were met called the combined_binary in the code.
+
 #### Screenshots:
 
 
