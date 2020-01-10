@@ -25,6 +25,16 @@
 5. Detect lane pixels and fit to find the lane boundary.
 6. Warp the detected lane boundaries back onto the original image.
 
+#### Packages Used:
+
+1. Flask==1.1.0
+2. gunicorn==19.6.0
+3. pandas==0.22.0
+4. numpy==1.11.2
+5. scipy==0.18.1
+6. scikit-learn>=0.18
+7. opencv-python==3.1.0.4
+
 
 #### Screenshots:
 
