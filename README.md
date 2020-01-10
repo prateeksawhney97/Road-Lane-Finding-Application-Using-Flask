@@ -5,7 +5,19 @@
 
 #### Application Structure:
 
--- camera_cal
+
+   .
+    ├── /camera_cal  
+    ├── /static                    
+    ├── /templates                 
+    ├── /test_images                    
+    ├── main.py                   
+    ├── app.yaml
+    ├── requirements.txt
+    └── README.md
+    
+
+- camera_cal
 -- static
 -- templates
 
