@@ -6,7 +6,6 @@
 #### Application Structure:
 
 
-   .
     ├── /camera_cal  
     ├── /static                    
     ├── /templates                 
@@ -16,10 +15,6 @@
     ├── requirements.txt
     └── README.md
     
-
-- camera_cal
--- static
--- templates
 
 #### The Steps Involved are:
 
