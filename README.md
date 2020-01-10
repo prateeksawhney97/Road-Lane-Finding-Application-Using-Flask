@@ -46,6 +46,10 @@ The Flask Application is deployed over Google Cloud Platform. https://lane-findi
 
 The first step in the pipeline is to undistort the camera. Some images of a 9x6 chessboard are given and are distorted. Our task is to find the Chessboard corners an plot them. For this, after loading the images we calibrate the camera. Open CV functions like findChessboardCorners(), drawChessboardCorners() and calibrateCamera() help us do this.
 
+##### Undistortion of Input Image:
+
+The images uploaded are initially undistorted using cv2.undistort() which takes in an image and returns the undistorted one.
+
 #### Screenshots:
 
 
