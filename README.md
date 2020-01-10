@@ -5,9 +5,9 @@
 
 #### Application Structure:
 
-- camera_cal
-- static
-- templates
+-- camera_cal
+-- static
+-- templates
 
 #### The Steps Involved are:
 
